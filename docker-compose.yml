@@ -1,18 +1,11 @@
-version: '3.9'
-
+version: '3'
 services:
   hiclass-react:
-    image: klimpavlov/hiclass-frontend-react
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: klimpavlov/hiclass-frontend-react # Укажите уже собранное изображение
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV=production
     volumes:
-      - ./firebase-serviceAccount.json:/app/firebase-serviceAccount.json
-    networks:
-      - frontend-network
-
-networks:
-  frontend-network:
-    driver: bridge
+      - ./app:/app  # если нужно подключить локальные файлы
+    command: ["npm", "run", "start"]  # Запускать приложение
